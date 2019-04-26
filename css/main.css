@@ -28,3 +28,16 @@ section div {
     border-radius: 50%;
     border: 1px solid grey;
 }
+
+#col-markers {
+    display: grid;
+    grid-template-columns: repeat(7, 10vmin);
+    grid-template-rows: 7vmin;
+    grid-gap: 1vmin;
+}
+
+#col-markers div {
+    border-top: 5vmin solid grey;
+    border-left: 5vmin solid transparent;
+    border-right: 5vmin solid transparent;
+}

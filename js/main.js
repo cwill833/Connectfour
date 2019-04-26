@@ -16,13 +16,54 @@ const msgEl = document.getElementById('msg');
 
 
 /*----- event listeners -----*/ 
-
+document.getElementById('col-markers')
+    .addEventListener('click', handleClick);
 
 
 /*----- functions -----*/
 init();
 
+function handleClick(evt){
+    const marker = evt.target;
+    const colIdx = parseInt(marker.id.replace('col', ''));
+    if (isNaN(colIdx)) return;
+    const rowIdx = board[colIdx].indexOf(0);
+    if(rowIdx === -1) return;
+    board[colIdx][rowIdx] = turn;
+    winner = getWinner();
+    turn *= -1;
+    render();
+    
+}
+
+function checkCol(colIdx){
+    return null;
+}
+
+function getWinner(){
+    let winner = null;
+    for(let colIdx = 0; colIdx < board.length; colIdx++){
+        winner = checkCol(colIdx);
+        if(winner) break;
+    }
+    return winner;
+}
+
 function render(){
+    //display the board
+    board.forEach((colArr, colIdx) => {
+        // update col markers
+        const marker = document.getElementById(`col${colIdx}`)
+        marker.style.borderTopColor = colArr.includes(0) ? 'grey' : 'white';
+        colArr.forEach((cell, rowIdx) => {
+            // access the correct div in the section
+            const div = document.getElementById(`c${colIdx}r${rowIdx}`);
+            div.style.backgroundColor = COLORS[cell];
+        });
+    });
+
+
+
     //display message
     if (winner) {
         if (winner === 'T'){
